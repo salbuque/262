@@ -1,0 +1,14 @@
+---
+title: "assign_1_sabuquerque"
+author: "Simone Albuquerque"
+date: "2/9/2021"
+output: html_document
+---
+
+```{r Why I Am Taking 262}
+# I am interested in practicing my data management skills.This quarter has been focused on geospatial data management and I hope to brush up on my R Skills. I want to make sure I create replicable code that is easily shared. 
+```
+
+```{r My Data Science Background}
+#My senior thesis utilized the " Party" package in R to rank 50+  variables and their relationship to species abundance. At the time I had limited capabilities, I could basically copy and paste the code. Since then I've taken Allison Horst's introductory course to data science and used R more frequently in my courses. Additionally I recently supported a research project creating a groundwater database for western states by collecting and collating the data. 
+```
