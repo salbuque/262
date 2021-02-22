@@ -5,10 +5,10 @@ date: "2/21/2021"
 output: html_document
 ---
   
-#run packages
-library(tidyverse)
-library(ggplot2)
-
+# #run packages
+# library(tidyverse)
+# library(ggplot2)
+# 
 
 #convert velocity values to m/s
 V<- c(108, 80, 120, 40)
