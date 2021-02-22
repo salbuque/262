@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo =TRUE)
 knitr::opts_chunk$set(error=TRUE)
 library(tidyverse)
 library(purrr)
-library(ggpubr)
+# library(ggpubr)
 ```
 
 
@@ -90,7 +90,7 @@ Example use: Imagine we want to see how much power is generated given scenario w
 
 ```{r sampling}
 
-source("R/autopower.R")
+source("Assignments/auto_power.R")
 
 # generate sample speeds from a distribution
 nsample = 100
