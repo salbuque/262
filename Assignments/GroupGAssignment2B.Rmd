@@ -50,7 +50,7 @@ ggplot(results, aes(x = "Across Speed", y = power/1000))+ geom_boxplot()+ labs( 
 # car D mass = 30000 kg, area - 10 m^2^
 
 
-#mean highway speed = 100 km/hr ***convert to m/s***
+#mean highway speed = 100 km/hr ***convert to km/s***
 speed_base = 100*.28
 #since we want only 1 variable to change in this example
 
@@ -71,6 +71,6 @@ ggplot(possible_cars, aes(x = mass, y = power, fill = as.factor(area)))+
 ```
 
 ```{r Random Sample of 100 highways with different conditions}
-
+#Total power consumed if there were 100 cars on this highway each hour, travelling at a range of speeds, mean 100 km/hr and are log distributed
 ```
 
