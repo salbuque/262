@@ -16,7 +16,10 @@ source("auto_power.R")
 #generate samples from distribution 
 nsample = 100
 speeds = rnorm(mean = 25, sd = 4, n=nsample)
+```
 
+
+```{r results if speed changes and car mass and area is constant}
 #create dataframe to store results
 
 results = data.frame(speed = speeds, power = NA)
@@ -38,7 +41,7 @@ ggplot(results, aes(x = "Across Speed", y = power/1000))+ geom_boxplot()+ labs( 
 
 ```
 
-```{r Create Inputs Possible Cars}
+```{r Create Inputs Possible Cars with mean speed}
 # create df there are multiple cars with unique mass and areas
 
 #car A mass = 20000kg, area 22m^2^
@@ -64,6 +67,10 @@ possible_cars$power = auto_pwr(V = speed_base, A = possible_cars$area, m = possi
 ggplot(possible_cars, aes(x = mass, y = power, fill = as.factor(area)))+
   geom_col()+
   labs(y = "Power W", x = "Mass (kg)")
+
+```
+
+```{r Random Sample of 100 highways with different conditions}
 
 ```
 
