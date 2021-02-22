@@ -5,6 +5,65 @@ date: "2/22/2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r Load Packages}
+library(tidyverse)
+library(ggplot2)
 ```
+```{r load function and create results table}
+#call in auto power function
+source("auto_power.R")
+
+#generate samples from distribution 
+nsample = 100
+speeds = rnorm(mean = 25, sd = 4, n=nsample)
+
+#create dataframe to store results
+
+results = data.frame(speed = speeds, power = NA)
+
+head(results)
+
+#create column with results
+#simple since only one variable, V is changing
+results$power = auto_pwr(V=speeds, A=25, m=20000)
+
+#visualize in graph 
+
+ggplot(results, aes(speed, power/1000))+
+  geom_point()+
+  labs(x = "speed m/s", y = "power kW")
+
+ggplot(results, aes(x = "Across Speed", y = power/1000))+ geom_boxplot()+ labs( y = "power kW")
+
+
+```
+
+```{r Create Inputs Possible Cars}
+# create df there are multiple cars with unique mass and areas
+
+#car A mass = 20000kg, area 22m^2^
+#car B mass = 65000 kg, area 30m^2^
+#car C mass 38000 kg, area 22m^2^
+# car D mass = 30000 kg, area - 10 m^2^
+
+
+#mean highway speed = 100 km/hr ***convert to m/s***
+speed_base = 100*.28
+#since we want only 1 variable to change in this example
+
+#generate inputs dataframe
+possible_cars = data.frame(name = c("A", "B", "C", "D"),mass =  c(10000, 65000, 38000,30000), area = c(22, 30, 22, 10))
+
+head(possible_cars)
+
+#generate results dataframe
+possible_cars$power = auto_pwr(V = speed_base, A = possible_cars$area, m = possible_cars$mass)
+
+
+#visualize in graph
+ggplot(possible_cars, aes(x = mass, y = power, fill = as.factor(area)))+
+  geom_col()+
+  labs(y = "Power W", x = "Mass (kg)")
+
+```
+
