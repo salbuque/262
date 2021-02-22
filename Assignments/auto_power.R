@@ -10,20 +10,20 @@ output: html_document
 # library(ggplot2)
 # 
 
-#convert velocity values to m/s
-V<- c(108, 80, 120, 40)
-
-new_values = function (V) {result = V/3.6}
-  
-#define velocity 
-velocity<- new_values(V)
-
-#define mass
-heavy_mass <- 31752
-light_mass <- 23814
+# #convert velocity values to m/s
+# V<- c(108, 80, 120, 40)
+# 
+# new_values = function (V) {result = V/3.6}
+#   
+# #define velocity 
+# velocity<- new_values(V)
+# 
+# #define mass
+# heavy_mass <- 31752
+# light_mass <- 23814
 
 # function 
-auto_pwr_fx = function (V, A=9, g=9.8, p_air = 1.2, Pb, crolling= 0.015, drag = 0.3, m) {
+auto_pwr = function (V, A=9, g=9.8, p_air = 1.2, Pb, crolling= 0.015, drag = 0.3, m) {
   result = crolling * m *g *V + (1/2) * A*p_air*drag*V^3
   }
 
