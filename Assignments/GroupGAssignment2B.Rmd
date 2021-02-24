@@ -71,6 +71,38 @@ ggplot(possible_cars, aes(x = mass, y = power, fill = as.factor(area)))+
 ```
 
 ```{r Random Sample of 100 highways with different conditions}
-#Total power consumed if there were 100 cars on this highway each hour, travelling at a range of speeds, mean 100 km/hr and are log distributed
+#Random Sample of 100 highways with different rolling coefficients; sample the rolling coefficients from a uniform distribution with a minimum value of 0.01 and a max value of 0.03
+
+nsample = 100
+r_coeff = runif(nsample, min = 0.01, max = 0.03)
+
+rolling = rlnorm(mean=r_coeff, sd=0.1*r_coeff, nsample)
+summary(rolling)
+
+plot(density(rolling), ylab="Distribution of Rolling Coefficients ")
+
+```
+
+```{r Use a for loop to compute the power for each highway for each car  speed = 120 km/hr (mean)}
+#create a dataframe for results
+power_for = as.data.frame(matrix(nrow=length(r_coeff), ncol=nrow(possible_cars)))
+# because we don't initialize it - values are NA
+head(power_for)
+
+#convert mean velocity from km/h to m/s
+V <- (120/3.6)
+
+#run for all variables through a for loop 
+for (i in 1:nrow(possible_cars)) {
+  power_for[,i] = auto_pwr(A=possible_cars$area[i], m=possible_cars$mass[i], V = V, crolling = rolling)
+}
+
+# now it looks like above
+head(power_for)
+
+# we can add column names
+colnames(power_for)=possible_cars$name
+
+head(power_for)
 ```
 
