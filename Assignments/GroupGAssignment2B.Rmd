@@ -106,3 +106,41 @@ colnames(power_for)=possible_cars$name
 head(power_for)
 ```
 
+
+```{r Use a for loop to compute the power for each highway for each car  speed = 120 km/hr (mean)}
+# create a box plot
+power_for_df<- power_for %>% 
+  pivot_longer(cols = everything(), names_to = "name", values_to = "power" )
+
+head(power_for_df)
+
+power_for_plot<- ggplot(data = power_for_df, aes(x = name, y = power))+
+                          geom_boxplot()
+
+power_for_plot
+```
+
+```{r pmap  repeat calculations and create a second boxplot}
+#run for all values of rolling coefficients
+power_pmap = pmap(list(A = possible_cars$area, m=possible_cars$mass), auto_pwr, V=V, crolling = rolling)
+
+#as a dataframe
+power_pmap = as.data.frame(power_pmap, col.names=possible_cars$name) %>% 
+  pivot_longer(cols = everything(), names_to = "name", values_to = "power")
+  
+#getting error can't run with name as a character and power as a double, but is running pivot_longer
+
+head(power_pmap)
+```
+
+
+```{r pmap  boxplot}
+
+pmap_box_plot = ggplot(power_pmap, aes(name,power, fill=name))+
+  geom_boxplot()+
+  ggtitle("pmap")
+
+pmap_box_plot
+
+```
+
