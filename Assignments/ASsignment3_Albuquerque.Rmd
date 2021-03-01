@@ -10,20 +10,32 @@ library(tidyverse)
 library(ggplot2)
 ```
 
-This R markdown will you two functions case_when_IR and Max_runtime to identify the precipitation rate when the max run time (time prior to creating runoff) of an irrigation system is 0. Case_when_IR will use the soil infiltration rate based on soil characteristics to find the   Allowable surface accumulation (inches). Then Max_runtime will identify the precipitation rate when the max run time is 0 given a fixed IR. 
+For a slope of 0-3% 
+
+This R markdown will use 3 functions soil_intake, allow_surf_acc and Max_runtime to identify the precipitation rate when the max run time (time prior to creating runoff) of an irrigation system is 0. Case_when_IR will use the soil infiltration rate based on soil characteristics to find the   Allowable surface accumulation (inches). Then Max_runtime will identify the precipitation rate when the max run time is 0 given a fixed IR. 
 
 ```{r load function and create results table}
-#call in auto power function
-source("soil_type.R")
-
-#generate samples from distribution 
-nsample = 100
-speeds = rnorm(mean = 25, sd = 4, n=nsample)
+#call in functions
+source("soil_intake.R") # from soil type evaluates Soil Intake Rate (in/hr) IR
+source("allow_surf_acc.R") #from IR evaluates Allowable Surface accumulation (inches) ASA
+source("R_max.R") #uses values derived above and precip to calc minutes of irrigation till runoff is generated per day
 ```
 
-```{r setup, include=FALSE}
+```{r Define Soil Intake and Allowable Surface Accumulation}
 knitr::opts_chunk$set(echo = TRUE)
+soil_class<- "clay" #set your soil class: clay, silty clay, clay loam, loam, sandy loam, loamy sand, sand
 
-IR = c(0.2, 0.23, 0.26, 0.3, 0.33, 0.36, 0.4)
-ASA = c(0.1, 0.15, 0.2, 0.35, 0.4, 0.5, 0.6)
+IR<- soil_intake(soil_class) #define IR
+ASA<- Allow_surf_acc(IR) # define ASA
+
 ```
+
+```{r Read in irrigation Data (or create dataset)}
+
+# total range of irrigation possibilities in a 24 hour interval
+ir_data <- runif(min = 0, max = 200, n = 500) # created datset of irrigation values ( minutes of irrigation per day)
+
+r_max(ir_data, IR = IR, ASA = ASA, PR = 0) # ran function for minutes of irrigation till runoff is generated per day to find the number of days, base don irrigation data, runoff was generated
+
+```
+
