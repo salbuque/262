@@ -12,7 +12,13 @@ library(tidyverse)
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-source("fish_stats.R")
+fish = read.table("Assignments\fish.txt", header=TRUE)
 
-fish_stats(x, histogram = TRUE)
+source("fish_stats.R") # read in function 
+
+fish_list<- read_csv("fish_list.csv")
+fish_list<- as.factor(fish_list$x) #change from character to factor
+fish_list_df<- as.data.frame(summary(fish_list), cut.names = FALSE, col.names = names(x), fix.empty.names = TRUE,stringsAsFactors = default.stringsAsFactors())
+  
+fish_stats(fish_list_df)
 ```
