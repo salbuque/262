@@ -75,11 +75,7 @@ ggplot(possible_cars, aes(x = mass, y = power, fill = as.factor(area)))+
 
 nsample = 100
 r_coeff = runif(nsample, min = 0.01, max = 0.03)
-
-rolling = rlnorm(mean=r_coeff, sd=0.1*r_coeff, nsample)
-summary(rolling)
-
-plot(density(rolling), ylab="Distribution of Rolling Coefficients ")
+plot(density(r_coeff), ylab="Distribution of Rolling Coefficients ")
 
 ```
 
@@ -94,7 +90,7 @@ V <- (120/3.6)
 
 #run for all variables through a for loop 
 for (i in 1:nrow(possible_cars)) {
-  power_for[,i] = auto_pwr(A=possible_cars$area[i], m=possible_cars$mass[i], V = V, crolling = rolling)
+  power_for[,i] = auto_pwr(A=possible_cars$area[i], m=possible_cars$mass[i], V = V, crolling = r_coeff)
 }
 
 # now it looks like above
@@ -122,7 +118,7 @@ power_for_plot
 
 ```{r pmap  repeat calculations and create a second boxplot}
 #run for all values of rolling coefficients
-power_pmap = pmap(list(A = possible_cars$area, m=possible_cars$mass), auto_pwr, V=V, crolling = rolling)
+power_pmap = pmap(list(A = possible_cars$area, m=possible_cars$mass), auto_pwr, V=V, crolling = r_coeff)
 
 #as a dataframe
 power_pmap = as.data.frame(power_pmap, col.names=possible_cars$name) %>% 

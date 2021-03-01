@@ -237,7 +237,7 @@ plot(density(speeds), ylab="Distribution of Speeds in (m/s)")
 possible_cars[1,]
 
 # we could do it by hand
-powerA = autopower(V=speeds, A = possible_cars$area[1], m=possible_cars$mass[1])
+powerA = autopower(V=speeds, A = possible_cars$area[1], m=e
 # lets look at what we get
 summary(powerA)
 
@@ -315,7 +315,7 @@ powerall2 = pmap(list(A = possible_cars$area, m=possible_cars$mass), autopower, 
 # we can add column names
 powerall2 = as.data.frame(powerall2, col.names=possible_cars$name)
 
-# apply family of functions does this to - FYI
+# apply family of functions does this too - FYI
 # what mapply does is run the function for each row in parameters listed, using values for other parameters listed in MoreArgs EACH time - a column for row in parameter list is returned
 powerall2b = mapply(FUN=autopower, A = possible_cars$area, m=possible_cars$mass, MoreArgs = list(V=speeds)  )
 # we can add column names
