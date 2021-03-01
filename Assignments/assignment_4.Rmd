@@ -1,0 +1,18 @@
+---
+title: "assignment_4"
+author: "Simone Albuquerque"
+date: "3/1/2021"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("fish_stats.R")
+
+fish_stats(x, histogram = TRUE)
+```
