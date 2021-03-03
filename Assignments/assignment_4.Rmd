@@ -7,18 +7,18 @@ output: html_document
 
 ```{r}
 library(tidyverse)
+library(here)
 ```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-fish = read.table("Assignments\fish.txt", header=TRUE)
+#read in .txt file of fish types 
+here <- here("Assignments", "fish.txt")
+fish<- read.delim(here, header=T)
 
+#source function
 source("fish_stats.R") # read in function 
 
-fish_list<- read_csv("fish_list.csv")
-fish_list<- as.factor(fish_list$x) #change from character to factor
-fish_list_df<- as.data.frame(summary(fish_list), cut.names = FALSE, col.names = names(x), fix.empty.names = TRUE,stringsAsFactors = default.stringsAsFactors())
-  
-fish_stats(fish_list_df)
+fish_stats(fish)
 ```
