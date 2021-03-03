@@ -8,6 +8,7 @@ output: html_document
 ```{r}
 library(tidyverse)
 library(here)
+library(dplyr)
 ```
 
 ```{r setup, include=FALSE}
@@ -20,5 +21,11 @@ fish<- read.delim(here, header=T)
 #source function
 source("fish_stats.R") # read in function 
 
-fish_stats(fish)
+fish_vector <- as.vector(fish$x)
+
+# call the function
+fish_stats(fish_vector, graph = TRUE)
+#fish_stats(fish_vector, graph = FALSE)
+
+
 ```
